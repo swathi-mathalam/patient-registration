@@ -1,6 +1,7 @@
 import { useState } from "react";
 import InputField from "../components/InputField";
 import Button from "../components/Button";
+import Swal from "sweetalert2";
 
 const PatientRegistration = () => {
   const [formData, setFormData] = useState({
@@ -36,24 +37,31 @@ const PatientRegistration = () => {
       newErrors.fullName = "Full Name is required";
     }
 
-    if (!formData.age) {
-      newErrors.age = "Age is required";
-    }
-
+   if (name === "age" && value < 0) {
+    return;
+  }
     if (!formData.email) {
       newErrors.email = "Email is required";
     } else if (
       !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(formData.email)
     ) {
       newErrors.email = "Invalid email format";
+    } 
+ 
+   if (
+    name === "phone" ||
+    name === "emergencyContact"
+  ) {
+    // Block anything except numbers
+    if (!/^[0-9\b]*$/.test(value)) {
+      return;
     }
 
-    if (!formData.phone) {
-      newErrors.phone = "Phone number is required";
-    } else if (!/^\d{10}$/.test(formData.phone)) {
-      newErrors.phone = "Phone must be 10 digits";
+    // Limit to 10 digits
+    if (value.length > 10) {
+      return;
     }
-
+  }
     if (!formData.password) {
       newErrors.password = "Password is required";
     } else if (formData.password.length < 6) {
@@ -83,7 +91,12 @@ const PatientRegistration = () => {
 
       console.log("Patient Registered:", patientData);
 
-      alert("Patient Registered Successfully!");
+      Swal.fire({
+  title: "Success!",
+  text: "Patient Registered Successfully!",
+  icon: "success",
+  confirmButtonText: "OK",
+});
 
       setFormData({
         fullName: "",
@@ -115,21 +128,24 @@ const PatientRegistration = () => {
           className="grid grid-cols-1 md:grid-cols-2 gap-4"
         >
           <InputField
-            label="Full Name"
-            name="fullName"
-            value={formData.fullName}
-            onChange={handleChange}
-            error={errors.fullName}
-          />
+  label="Full Name"
+  name="fullName"
+  value={formData.fullName}
+  onChange={handleChange}
+  error={errors.fullName}
+  required
+/>
 
           <InputField
-            label="Age"
-            type="number"
-            name="age"
-            value={formData.age}
-            onChange={handleChange}
-            error={errors.age}
-          />
+  label="Age"
+  type="number"
+  name="age"
+  value={formData.age}
+  onChange={handleChange}
+  error={errors.age}
+  min="0"
+  required
+/>
 
           <InputField
             label="Date of Birth"
@@ -165,29 +181,40 @@ const PatientRegistration = () => {
             </select>
           </div>
 
-          <InputField
-            label="Phone Number"
-            name="phone"
-            value={formData.phone}
-            onChange={handleChange}
-            error={errors.phone}
-          />
+      <InputField
+  label="Phone Number"
+  type="text"
+  name="phone"
+  value={formData.phone}
+  onChange={handleChange}
+  error={errors.phone}
+  required
+  maxLength={10}
+/>
 
           <InputField
-            label="Email"
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            error={errors.email}
-          />
+  label="Email"
+  type="email"
+  name="email"
+  value={formData.email}
+  onChange={handleChange}
+  error={errors.email}
+  required
+/>
 
-          <InputField
-            label="Address"
-            name="address"
-            value={formData.address}
-            onChange={handleChange}
-          />
+         <div>
+  <label className="block mb-2 font-medium text-gray-700">
+    Address
+  </label>
+
+  <textarea
+    name="address"
+    value={formData.address}
+    onChange={handleChange}
+    rows="1"
+    className="w-full border border-gray-300 rounded-lg px-4 py-2 h-[42px] resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"
+  />
+</div>
 
           <InputField
             label="Blood Group"
@@ -196,37 +223,45 @@ const PatientRegistration = () => {
             onChange={handleChange}
           />
 
-          <InputField
-            label="Emergency Contact"
-            name="emergencyContact"
-            value={formData.emergencyContact}
-            onChange={handleChange}
-          />
+        <InputField
+  label="Emergency Contact"
+  type="text"
+  name="emergencyContact"
+  value={formData.emergencyContact}
+  onChange={handleChange}
+  maxLength={10}
+/><div>
+  <label className="block mb-2 font-medium text-gray-700">
+    Medical History
+  </label>
 
+  <textarea
+    name="medicalHistory"
+    value={formData.medicalHistory}
+    onChange={handleChange}
+    rows="1"
+    className="w-full border border-gray-300 rounded-lg px-4 py-2 h-[42px] resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"
+  />
+</div>
           <InputField
-            label="Medical History"
-            name="medicalHistory"
-            value={formData.medicalHistory}
-            onChange={handleChange}
-          />
+  label="Password"
+  type="password"
+  name="password"
+  value={formData.password}
+  onChange={handleChange}
+  error={errors.password}
+  required
+/>
 
-          <InputField
-            label="Password"
-            type="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            error={errors.password}
-          />
-
-          <InputField
-            label="Confirm Password"
-            type="password"
-            name="confirmPassword"
-            value={formData.confirmPassword}
-            onChange={handleChange}
-            error={errors.confirmPassword}
-          />
+         <InputField
+  label="Confirm Password"
+  type="password"
+  name="confirmPassword"
+  value={formData.confirmPassword}
+  onChange={handleChange}
+  error={errors.confirmPassword}
+  required
+/>
 
           <div className="md:col-span-2">
             <Button text="Register Patient" />
