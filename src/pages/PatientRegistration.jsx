@@ -5,18 +5,18 @@ import Swal from "sweetalert2";
 
 const PatientRegistration = () => {
   const [formData, setFormData] = useState({
-  fullName: "Swathi Mathalam",
-  age: "24",
-  dob: "2002-05-10",
-  gender: "Female",
-  phone: "9876543210",
-  email: "swathi@gmail.com",
-  address: "Bangalore, Karnataka",
-  bloodGroup: "O+",
-  emergencyContact: "9123456789",
-  medicalHistory: "No major illness",
-  password: "swathi123",
-  confirmPassword: "swathi123",
+  fullName: "",
+  age: "",
+  dob: "",
+  gender: "",
+  phone: "",
+  email: "",
+  address: "",
+  bloodGroup: "",
+  emergencyContact: "",
+  medicalHistory: "",
+  password: "",
+  confirmPassword: "",
 });
 
   const [errors, setErrors] = useState({});
