@@ -4,6 +4,7 @@ import PatientRegistration from "./pages/PatientRegistration";
 import Button from "./components/Button";
 import Inputfield from "./components/Inputfield";
 import Navbar from "./components/Navbar";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
   return (
@@ -11,6 +12,11 @@ function App() {
       <Routes>
         <Route
           path="/"
+          element={<Dashboard />}
+        />
+
+        <Route
+          path="/patient-registration"
           element={<PatientRegistration />}
         />
       </Routes>
