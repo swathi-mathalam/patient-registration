@@ -91,8 +91,18 @@ const Dashboard = () => {
           Register Patient
         </button>
       </div>
+      {/* Footer */}
+<footer className="mt-16 bg-blue-700 text-white rounded-3xl p-5 text-center shadow-lg">
+  <p className="text-lg font-medium">
+    © 2026 Healthcare Management System
+  </p>
+  <p className="text-sm mt-1 text-blue-100">
+    Providing better healthcare services for patients
+  </p>
+</footer>
     </div>
   );
 };
+
 
 export default Dashboard;
