@@ -12,17 +12,14 @@ const Dashboard = () => {
   return (
     <div className="min-h-screen bg-gradient-to-r from-blue-100 via-white to-cyan-100 p-8">
  
-      {/* Header Section */}
-      <div className="text-center">
-       
-        <h1 className="text-5xl font-bold text-blue-700 mt-3">
-          Healthcare Dashboard
-        </h1>
- <p className="text-gray-600 mt-2 text-lg">
-          Welcome to Patient Management System
-        </p>
-       
-      </div>
+       <div>
+    <h2 className="text-3xl font-bold text-blue-700">
+      Healthcare Dashboard
+    </h2>
+    <p className="text-gray-500 text-sm">
+      Welcome to Patient Management System
+    </p>  
+  </div>
 
       
      {/* Hero Image */}
